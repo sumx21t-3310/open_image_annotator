@@ -5,6 +5,8 @@ from pathlib import Path
 from torch.utils.data import Dataset
 from open_image_annotator_dataset.types import *
 
+__all__ = ['OpenImageAnnotatorDatasetBase', 'parse_dataset_file']
+
 
 class OpenImageAnnotatorDatasetBase(Dataset, ABC):
     def __init__(self, data_path: str | Path):

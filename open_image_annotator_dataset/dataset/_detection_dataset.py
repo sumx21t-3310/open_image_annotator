@@ -3,6 +3,7 @@ from torchvision.transforms.v2 import Transform
 
 from open_image_annotator_dataset.dataset._dataset_base import OpenImageAnnotatorDatasetBase
 
+__all__ = ["OpenImageAnnotatorDetectionDataset"]
 
 class OpenImageAnnotatorDetectionDataset(OpenImageAnnotatorDatasetBase):
     def __init__(self, path, image_transform: Transform):
