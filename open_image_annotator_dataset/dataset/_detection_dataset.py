@@ -1,7 +1,7 @@
 from PIL import Image
 from torchvision.transforms.v2 import Transform
 
-from open_image_annotator_dataset.dataset._dataset_base import OpenImageAnnotatorDatasetBase
+from ._dataset_base import OpenImageAnnotatorDatasetBase
 
 __all__ = ["OpenImageAnnotatorDetectionDataset"]
 

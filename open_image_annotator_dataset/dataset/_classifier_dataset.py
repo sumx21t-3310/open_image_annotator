@@ -4,7 +4,7 @@ import torch
 from PIL import Image
 from torchvision.transforms.v2 import Transform, ToTensor
 
-from open_image_annotator_dataset.dataset import OpenImageAnnotatorDatasetBase
+from ._dataset_base import OpenImageAnnotatorDatasetBase
 
 __all__ = ['OpenImageAnnotatorClassifierDataset', 'OpenImageAnnotatorMultiLabelClassifierDataset']
 

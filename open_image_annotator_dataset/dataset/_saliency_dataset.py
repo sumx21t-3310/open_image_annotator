@@ -7,7 +7,7 @@ import torch
 from PIL import Image
 
 from open_image_annotator_dataset.types import *
-from open_image_annotator_dataset.dataset._dataset_base import OpenImageAnnotatorDatasetBase
+from ._dataset_base import OpenImageAnnotatorDatasetBase
 from torchvision.transforms.v2 import *
 
 __all__ = [
