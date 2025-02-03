@@ -50,3 +50,10 @@ def parse_dataset_file(file_path: str | Path):
             annotations.append(result)
 
     return metadata, constraints, annotations
+
+
+if __name__ == '__main__':
+    path = input("Enter path to dataset: ").replace("'", "").replace('"', "")
+    metadata, constraints, annotations = parse_dataset_file(path)
+    for annotation in annotations:
+        print(annotation.image)
