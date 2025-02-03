@@ -30,7 +30,7 @@ class OpenImageAnnotatorBubbleViewDataset(OpenImageAnnotatorDatasetBase):
             return image, ground_truth
 
         annotation = self.annotations[item]
-        image = Image.open(annotation.image.as_posix())
+        image = Image.open(annotation.image)
         saliency_map = annotation.click_points
         ground_truth = generate_saliency_map(saliency_map, image.size, point_intensity=0.25, blur_radius=100)
 

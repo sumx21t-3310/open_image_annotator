@@ -25,7 +25,7 @@ class OpenImageAnnotatorDatasetBase(Dataset, ABC):
         return len(self.annotations)
 
 
-def parse_dataset_file(file_path: str | Path):
+def parse_dataset_file(file_path: str | Path) -> tuple[Metadata, BubbleViewConstraints, list[Annotation]]:
     file_path = Path(file_path)
     with file_path.open() as f:
         json_data = json.load(f)
