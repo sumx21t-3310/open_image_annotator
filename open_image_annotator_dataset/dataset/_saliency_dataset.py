@@ -52,7 +52,9 @@ def clamp(value, min_value: float = 0, max_value: float = 1):
 def generate_saliency_map(coordinates: list[ClickPoint],
                           image_size=(500, 500),
                           point_intensity: float = 0.125,
-                          blur_radius=51) -> Image:
+                          blur_radius=51,
+                          magnification_rate: float = 1.5,
+                          ) -> Image:
     point_intensity = clamp(point_intensity)
     width, height = image_size
 
@@ -71,7 +73,7 @@ def generate_saliency_map(coordinates: list[ClickPoint],
             cv2.circle(overlay,
 
                        (int(clickpoint.x), int(clickpoint.y)),
-                       circle_radius,
+                       circle_radius * magnification_rate,
                        (point_intensity),
                        thickness=-1)
 
