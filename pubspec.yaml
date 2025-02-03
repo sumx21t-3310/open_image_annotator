@@ -1,0 +1,56 @@
+name: open_image_annotator
+description: "image annotation editor"
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.6.0
+dependencies:
+  flutter:
+    sdk: flutter
+  go_router:
+  file_picker:
+  path_provider:
+  path:
+  http:
+  archive:
+  shared_preferences:
+  riverpod:
+  flutter_riverpod:
+  hooks_riverpod:
+  flutter_hooks:
+  undo:
+  font_awesome_flutter:
+  google_fonts:
+  image_size_getter:
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints:
+  flutter_launcher_icons:
+  msix:
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/icon/icon.png
+
+# release build settings
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icon/icon.png"
+  min_sdk_android: 21
+  web:
+    generate: true
+    image_path: "assets/icon/icon.png"
+    background_color: "#hexcode"
+    theme_color: "#hexcode"
+  windows:
+    generate: true
+    image_path: "assets/icon/icon.png"
+    icon_size: 48
+  macos:
+    generate: true
+    image_path: "assets/icon/icon.png"
