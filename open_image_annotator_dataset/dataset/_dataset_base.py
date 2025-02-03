@@ -37,7 +37,7 @@ def parse_dataset_file(file_path: str | Path):
         for i in range(4):
             for annotation in json_data['annotations']:
                 annotation_id = annotation['id']
-                image = root.joinpath(annotation['image'])
+                image = Path(root / annotation['image'])
                 clickpoints = [ClickPoint(**cp) for cp in annotation['click_points']]
                 image_labels = [Label(**il) for il in annotation['image_labels']]
                 bounds = [BoundingBox(**bbox) for bbox in annotation['bounds']]
