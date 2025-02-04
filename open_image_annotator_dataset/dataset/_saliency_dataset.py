@@ -1,14 +1,12 @@
-import random
-
 import cv2
 import matplotlib.pyplot as plt
 import numpy as np
 import torch
 from PIL import Image
+from torchvision.transforms.v2 import *
 
 from open_image_annotator_dataset.types import *
 from ._dataset_base import OpenImageAnnotatorDatasetBase
-from torchvision.transforms.v2 import *
 
 __all__ = [
     "OpenImageAnnotatorBubbleViewDataset",
@@ -17,10 +15,12 @@ __all__ = [
 
 
 class OpenImageAnnotatorBubbleViewDataset(OpenImageAnnotatorDatasetBase):
-    def __init__(self, data_path, image_transform: Transform = ToTensor(), map_transform: Transform = ToTensor()):
+    def __init__(self, data_path, image_transform: Transform = ToTensor(), map_transform: Transform = ToTensor(),
+                 magnification_rate: float = 3):
         super().__init__(data_path)
         self.image_transform = image_transform
         self.map_transform = map_transform
+        self.magnification_rate = magnification_rate
 
         self.cache_images: dict[int, tuple[torch.Tensor, torch.Tensor]] = {}
 
@@ -32,7 +32,11 @@ class OpenImageAnnotatorBubbleViewDataset(OpenImageAnnotatorDatasetBase):
         annotation = self.annotations[item]
         image = Image.open(annotation.image)
         saliency_map = annotation.click_points
-        ground_truth = generate_saliency_map(saliency_map, image.size, point_intensity=0.25, blur_radius=100)
+        ground_truth = generate_saliency_map(saliency_map,
+                                             image.size,
+                                             point_intensity=0.25,
+                                             blur_radius=100,
+                                             magnification_rate=self.magnification_rate)
 
         if self.image_transform is not None:
             image = self.image_transform(image)
@@ -53,7 +57,7 @@ def generate_saliency_map(coordinates: list[ClickPoint],
                           image_size=(500, 500),
                           point_intensity: float = 0.125,
                           blur_radius=51,
-                          magnification_rate: float = 1.5,
+                          magnification_rate: float = 3,
                           ) -> Image:
     point_intensity = clamp(point_intensity)
     width, height = image_size
@@ -91,18 +95,3 @@ def generate_saliency_map(coordinates: list[ClickPoint],
     saliency_map = saliency_map.astype(np.uint8)
 
     return Image.fromarray(saliency_map, "L")
-
-
-if __name__ == '__main__':
-    width = 256
-    height = 256
-
-    coordinates = [ClickPoint(i, random.randint(0, width - 1), random.randint(0, height - 1), 5) for i in range(100)]
-
-    saliency_map = generate_saliency_map(coordinates, image_size=(width, height), blur_radius=51)
-
-    plt.figure(figsize=(8, 6))
-    plt.imshow(saliency_map)
-    plt.title('saliency map')
-    plt.axis('off')
-    plt.show()
